@@ -16,7 +16,10 @@
                 "userProperties": [],
                 "typeProperties": {
                     "method": "GET",
-                    "url": "@concat('https://www.bankofcanada.ca/valet/observations/FXUSDCAD/json?start_date=', pipeline().parameters.StartDate, '&end_date=', pipeline().parameters.EndDate)"
+                    "url": {
+                        "value": "@concat('https://www.bankofcanada.ca/valet/observations/FXUSDCAD/json?start_date=', pipeline().parameters.StartDate, '&end_date=', pipeline().parameters.EndDate)",
+                        "type": "Expression"
+                    }
                 }
             },
             {
@@ -32,8 +35,8 @@
                 ],
                 "policy": {
                     "timeout": "0.12:00:00",
-                    "retry": 0,
-                    "retryIntervalInSeconds": 30,
+                    "retry": 3,
+                    "retryIntervalInSeconds": 60,
                     "secureOutput": false,
                     "secureInput": false
                 },
@@ -42,11 +45,17 @@
                     "storedProcedureName": "[dbo].[LoadUsdCad]",
                     "storedProcedureParameters": {
                         "ObservationsJson": {
-                            "value": "@string(activity('GetValetRates').output.observations)",
+                            "value": {
+                                "value": "@string(activity('GetValetRates').output.observations)",
+                                "type": "Expression"
+                            },
                             "type": "String"
                         },
                         "PipelineRunId": {
-                            "value": "@pipeline().RunId",
+                            "value": {
+                                "value": "@pipeline().RunId",
+                                "type": "Expression"
+                            },
                             "type": "Guid"
                         }
                     }
@@ -80,8 +89,8 @@
                             "dependsOn": [],
                             "policy": {
                                 "timeout": "0.12:00:00",
-                                "retry": 0,
-                                "retryIntervalInSeconds": 30,
+                                "retry": 3,
+                                "retryIntervalInSeconds": 60,
                                 "secureOutput": false,
                                 "secureInput": false
                             },
@@ -90,7 +99,10 @@
                                 "storedProcedureName": "[dbo].[CheckUsdCadFreshness]",
                                 "storedProcedureParameters": {
                                     "CheckDate": {
-                                        "value": "@pipeline().parameters.EndDate",
+                                        "value": {
+                                            "value": "@pipeline().parameters.EndDate",
+                                            "type": "Expression"
+                                        },
                                         "type": "String"
                                     }
                                 }
@@ -116,6 +128,8 @@
                 "defaultValue": false
             }
         },
-        "annotations": []
-    }
+        "annotations": [],
+        "lastPublishTime": "2026-11-17T01:31:54Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
 }
