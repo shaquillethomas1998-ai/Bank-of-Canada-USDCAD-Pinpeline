@@ -40,7 +40,11 @@ Script 6 writes a test rejection on each execution. Run it in a development data
 Troubleshooting the freshness check
 An ADF Debug run failed with SQL error 50002 when freshness was enabled. The activity input showed CheckDate = null, and the API request showed blank date parameters. The stored procedure activity mapped CheckDate to the pipeline's EndDate. Supplying both pipeline dates in yyyy-MM-dd format resolved the issue. A subsequent Debug run succeeded across all four activities, including the freshness procedure.
 
-The trigger configuration was published and started. The first scheduled run remains to be verified in ADF Studio → Monitor → Pipeline runs. Open the run initiated by tr_daily_usd_cad and check that the freshness activity succeeded.
+The daily trigger fired on November 18, 2026 at 6:00 p.m. Eastern, but the SQL load failed with a connection timeout: “Server provided routing information, but timeout already expired.” A manual rerun also failed with the same error. A subsequent linked-service connection test passed, and a later manual rerun on November 19 succeeded across all four activities, including the freshness check. The underlying cause of the temporary connectivity failure was not established.
+
+Both SQL stored-procedure activities are now configured for up to three retries at 60-second intervals. These settings were published to Azure and saved in the pipeline JSON.
+
+After refreshing Power BI Desktop, the dashboard displayed November 18, 2026 as the latest observation date, with a rate of 1.4326 CAD per USD. A successful unattended scheduled run remains to be verified.
 Power BI report
 The report imports dbo.ExchangeRate from Azure SQL and filters on FXUSDCAD and dates from November 16, 2025 onward. The lower date bound excludes the January test load. Two cards show the latest loaded date and its corresponding rate. To refresh in Power BI Desktop, point the report at your Azure SQL database and use Refresh after new rates are loaded.
 
