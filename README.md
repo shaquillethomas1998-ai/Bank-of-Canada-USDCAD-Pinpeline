@@ -175,4 +175,10 @@ Check dates outside the supported range raise SQL error `50003`.
 - Successful scheduled execution remains to be verified.
 - Freshness checking depends on the supported calendar dates described above.
 
+- ## Data Attribution
+
+Source: [Bank of Canada Valet API](https://www.bankofcanada.ca/valet/docs), FXUSDCAD series.
+
+Exchange-rate observations are used for an independent portfolio analysis. Data preparation and visualizations are by Shaquille Thomas.
+
 This is an independent portfolio project using public Bank of Canada data. It is not affiliated with or endorsed by the Bank of Canada.
