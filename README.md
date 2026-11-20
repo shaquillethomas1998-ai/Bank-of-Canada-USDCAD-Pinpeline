@@ -11,13 +11,16 @@ flowchart LR
 - Azure SQL validates dates and positive numeric rates, logs rejected rows by pipeline run ID, and inserts or updates rates. A primary key on (SeriesCode, ObservationDate) keeps one observation per series and date when a date range is reloaded.
 - Freshness is checked after the load when CheckFreshness is enabled. The procedure compares the latest stored date with the expected publication date, accounting for weekends and the holidays in its reviewed calendar.
 Bank of Canada Valet API series endpoint
-Repository contents
-Location	Contents
-[ADF](ADF/)	Pipeline and daily trigger JSON exports
-[SQL Setup](SQL%20Setup/)	Table definitions, stored procedures, and execution grants
-[SQL Validation](SQL%20Validation/)	Test load, invalid rate, backfill, and freshness checks
-[docs/images](docs/images/)	Power BI dashboard screenshot
-Project root	Power BI Desktop report (.pbix)
+
+## Repository contents
+
+| Location | Contents |
+|---|---|
+| [ADF](https://github.com/shaquillethomas1998-ai/Bank-of-Canada-USDCAD-Pinpeline/tree/main/ADF) | Pipeline and daily trigger JSON exports |
+| [SQL Setup](https://github.com/shaquillethomas1998-ai/Bank-of-Canada-USDCAD-Pinpeline/tree/main/SQL%20Setup) | Table definitions, stored procedures, and execution grants |
+| [SQL Validation](https://github.com/shaquillethomas1998-ai/Bank-of-Canada-USDCAD-Pinpeline/tree/main/SQL%20Validation) | Test load, invalid-rate, backfill, and freshness checks |
+| [Dashboard images](https://github.com/shaquillethomas1998-ai/Bank-of-Canada-USDCAD-Pinpeline/tree/main/docs/images) | Power BI dashboard screenshots |
+| [Power BI report](https://github.com/shaquillethomas1998-ai/Bank-of-Canada-USDCAD-Pinpeline/blob/main/Bank%20of%20Canada%20USDCAD.pbix) | Downloadable Power BI Desktop report |
 
 
 Reproduce the pipeline
